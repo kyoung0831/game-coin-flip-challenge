@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+
+    <link rel="stylesheet" href="10-calculator.css">
+    
+  </head>
+  <body>
+    <div class="calculator-body">
+      <p>Calculator</p>
+      <p class="js-update-calculation"></p>
+      <p>
+        <button onclick="
+          calculation += '1';
+          updateCalculation(); 
+        " class="number-button">1</button>
+
+        <button onclick="
+          calculation += '2';
+          updateCalculation(); 
+        " class="number-button">2</button>
+        
+        <button onclick="
+          calculation += '3';
+          updateCalculation();
+        " class="number-button">3</button>
+
+        <button onclick="
+          calculation += '+';
+          updateCalculation();
+        " class="number-button2">+</button>
+      </p>
+
+      <p>
+        <button onclick="
+          calculation += '4';
+          updateCalculation(); 
+        " class="number-button">4</button>
+
+        <button onclick="
+          calculation += '5';
+          updateCalculation(); 
+        " class="number-button">5</button>
+        
+        <button onclick="
+          calculation += '6';
+          updateCalculation();
+        " class="number-button">6</button>
+
+        <button onclick="
+          calculation += '-';
+          updateCalculation();
+        " class="number-button2">-</button>
+      </p>
+      
+      <p>
+        <button onclick="
+          calculation += '7';
+          updateCalculation();
+        " class="number-button">7</button>
+
+        <button onclick="
+          calculation += '8';
+          updateCalculation();
+        " class="number-button">8</button>
+        
+        <button onclick="
+          calculation += '9';
+          updateCalculation();
+        " class="number-button">9</button>
+
+        <button onclick="
+          calculation += '*';
+          updateCalculation();
+        " class="number-button2">*</button>
+      </p>
+
+      <p>
+        <button onclick="
+          calculation += '0';
+          updateCalculation(); 
+        " class="number-button">0</button>
+
+        <button onclick="
+          calculation += '.';
+          updateCalculation();
+        " class="number-button">.</button>
+
+        <button onclick="
+          calculation = eval(calculation);
+          updateCalculation();
+        " class="number-button">=</button>
+
+        <button onclick="
+          calculation += '/';
+          updateCalculation();
+        " class="number-button2">/</button>  
+      </p>
+
+      <p>
+        <button onclick="
+          console.log('Cleared.');
+          calculation = ''; 
+          updateCalculation();
+        " class="number-button1">Clear</button>
+      </p>
+    </div>
+    <script src="10-calculator.js"></script>
+  </body>
+</html>
