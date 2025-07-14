@@ -1,111 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Calculator</title>
+    <meta charset="UTF-8" />
+    <title>Coin Flip Game</title>
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
-    <link rel="stylesheet" href="10-calculator.css">
-    
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: url('image/background.avif') no-repeat center center / cover;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        font-family: Tahoma, sans-serif;
+        color: white;
+        text-shadow: 1px 1px 3px black;
+      }
+      .title {
+        font-size: 80px;
+      }
+      .body-details {
+        margin-top: 40px;
+        text-align: center;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 20px;
+      }
+
+      button {
+        margin: 10px;
+        width: 120px;
+        height: 120px;
+        font-size: 28px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #66bb6a;
+      }
+
+      p {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+      .reset-score-button {
+        font-size: 20px;
+        width: auto;
+        height: auto;
+        padding: 10px 20px;
+        background-color: #f4f13688;
+        border-radius: 8px;
+      }
+
+      .reset-score-button:hover {
+        background-color: #f4f136c2;
+      }
+    </style>
   </head>
   <body>
-    <div class="calculator-body">
-      <p>Calculator</p>
-      <p class="js-update-calculation"></p>
-      <p>
-        <button onclick="
-          calculation += '1';
-          updateCalculation(); 
-        " class="number-button">1</button>
-
-        <button onclick="
-          calculation += '2';
-          updateCalculation(); 
-        " class="number-button">2</button>
-        
-        <button onclick="
-          calculation += '3';
-          updateCalculation();
-        " class="number-button">3</button>
-
-        <button onclick="
-          calculation += '+';
-          updateCalculation();
-        " class="number-button2">+</button>
-      </p>
-
-      <p>
-        <button onclick="
-          calculation += '4';
-          updateCalculation(); 
-        " class="number-button">4</button>
-
-        <button onclick="
-          calculation += '5';
-          updateCalculation(); 
-        " class="number-button">5</button>
-        
-        <button onclick="
-          calculation += '6';
-          updateCalculation();
-        " class="number-button">6</button>
-
-        <button onclick="
-          calculation += '-';
-          updateCalculation();
-        " class="number-button2">-</button>
-      </p>
-      
-      <p>
-        <button onclick="
-          calculation += '7';
-          updateCalculation();
-        " class="number-button">7</button>
-
-        <button onclick="
-          calculation += '8';
-          updateCalculation();
-        " class="number-button">8</button>
-        
-        <button onclick="
-          calculation += '9';
-          updateCalculation();
-        " class="number-button">9</button>
-
-        <button onclick="
-          calculation += '*';
-          updateCalculation();
-        " class="number-button2">*</button>
-      </p>
-
-      <p>
-        <button onclick="
-          calculation += '0';
-          updateCalculation(); 
-        " class="number-button">0</button>
-
-        <button onclick="
-          calculation += '.';
-          updateCalculation();
-        " class="number-button">.</button>
-
-        <button onclick="
-          calculation = eval(calculation);
-          updateCalculation();
-        " class="number-button">=</button>
-
-        <button onclick="
-          calculation += '/';
-          updateCalculation();
-        " class="number-button2">/</button>  
-      </p>
-
-      <p>
-        <button onclick="
-          console.log('Cleared.');
-          calculation = ''; 
-          updateCalculation();
-        " class="number-button1">Clear</button>
-      </p>
+    <div class="title">COIN FLIP GAME</div>
+    <div class="body-details">
+      <p>Guess Heads or Tails?</p>
+      <button onclick="playGame('Heads')" aria-label="Guess Heads">Heads</button>
+      <button onclick="playGame('Tails')" aria-label="Guess Tails">Tails</button>
+      <p class="js-score score"></p>
+      <button class="reset-score-button js-reset-score">Reset Score</button>
     </div>
-    <script src="10-calculator.js"></script>
+
+    <script>
+      let score = JSON.parse(localStorage.getItem
+      ('score')) || {
+        wins: 0,
+        losses: 0
+      };
+      updateScoreElement();
+
+      function playGame(userChoice) {
+        const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+        let message = `You chose ${userChoice}.\nCoin flipped: ${result}.\n`;
+
+        if (userChoice === result) {
+          score.wins++;
+          message += 'You win!';
+        } else {
+          score.losses++;
+          message += 'You lose!';
+        }
+        // Save score and update display
+        localStorage.setItem('score', JSON.stringify(score));
+        updateScoreElement();
+        alert(message);
+      }
+      function updateScoreElement() {
+        document.querySelector('.js-score')
+          .innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}`;
+      }
+      document.querySelector('.js-reset-score').addEventListener('click', () => {
+        score = { wins: 0, losses: 0 };
+        localStorage.removeItem('score');
+        updateScoreElement();
+      });
+    </script>
   </body>
 </html>
